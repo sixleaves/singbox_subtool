@@ -1,12 +1,16 @@
-from config_manager import ConfigManager
-from models import SubscriptionConfig
-from subscription import SubscriptionManager
+import os
+
+from core.config_manager import ConfigManager
+from core.models import SubscriptionConfig
+from core.subscription import SubscriptionManager
 
 
 def main():
     """Main entry point."""
     try:
         # Initialize managers
+        # config_path = os.path.abspath()
+        # template_path = os.path.abspath()
         sub_manager = SubscriptionManager('providers.json')
         config_manager = ConfigManager('config_template/default.json')
 

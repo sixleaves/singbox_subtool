@@ -1,11 +1,12 @@
-import tool,json,re,urllib
+import json,re,urllib
+from core import tool
 from urllib.parse import parse_qs
 def parse(data):
     param = data[5:]
     if not param or param.isspace():
         return None
     node = {
-        'tag':tool.genName()+'_shadowsocks',
+        'tag': tool.genName() + '_shadowsocks',
         'type':'shadowsocks',
         'server':None,
         'server_port':0,
@@ -45,14 +46,14 @@ def parse(data):
     elif param.find('v2ray-plugin') > -1:
         if param.find('&', param.find('v2ray-plugin')) > -1:
             try:
-                plugin = tool.b64Decode(param[param.find('v2ray-plugin')+13:param.find('&', param.find('v2ray-plugin'))]).decode('utf-8')
+                plugin = tool.b64Decode(param[param.find('v2ray-plugin') + 13:param.find('&', param.find('v2ray-plugin'))]).decode('utf-8')
             except:
                 plugin = urllib.parse.unquote(param[param.find('v2ray-plugin')+15:param.find('&', param.find('v2ray-plugin'))])
                 pairs = [pair.split('=') for pair in plugin.split(';') if '=' in pair and pair.count('=') == 1]
                 plugin = str({key: value for key, value in pairs})
         else:
             try:
-                plugin = tool.b64Decode(param[param.find('v2ray-plugin')+13:]).decode('utf-8')
+                plugin = tool.b64Decode(param[param.find('v2ray-plugin') + 13:]).decode('utf-8')
             except:
                 plugin = urllib.parse.unquote(param[param.find('v2ray-plugin')+15:])
                 pairs = [pair.split('=') for pair in plugin.split(';') if '=' in pair and pair.count('=') == 1]
@@ -128,9 +129,9 @@ def parse(data):
     if param2.find('shadow-tls') > -1:
         flag = 1
         if param2.find('&', param2.find('shadow-tls')) > -1:
-            plugin = tool.b64Decode(param2[param2.find('shadow-tls')+11:param2.find('&', param2.find('shadow-tls'))].split('#')[0]).decode('utf-8')
+            plugin = tool.b64Decode(param2[param2.find('shadow-tls') + 11:param2.find('&', param2.find('shadow-tls'))].split('#')[0]).decode('utf-8')
         else:
-            plugin = tool.b64Decode(param2[param2.find('shadow-tls')+11:].split('#')[0]).decode('utf-8')
+            plugin = tool.b64Decode(param2[param2.find('shadow-tls') + 11:].split('#')[0]).decode('utf-8')
         plugin = eval(plugin.replace('true','True'))
         node['detour'] = node['tag']+'_shadowtls'
         node_tls = {

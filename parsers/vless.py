@@ -1,4 +1,5 @@
-import tool,re
+import re
+from core import tool
 from urllib.parse import urlparse, parse_qs, unquote
 def parse(data):
     info = data[:]
@@ -26,7 +27,7 @@ def parse(data):
     else:
         remarks = server_info.fragment
     node = {
-        'tag': unquote(remarks) or tool.genName()+'_vless',
+        'tag': unquote(remarks) or tool.genName() + '_vless',
         'type': 'vless',
         'server': server,
         'server_port': server_port,

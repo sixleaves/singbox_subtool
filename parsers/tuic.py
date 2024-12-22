@@ -1,4 +1,5 @@
-import tool,re
+import re
+from core import tool
 from urllib.parse import urlparse, parse_qs
 def parse(data):
     info = data[:]
@@ -12,7 +13,7 @@ def parse(data):
         for k, v in parse_qs(server_info.query).items()
     )
     node = {
-        'tag': server_info.fragment or tool.genName()+'_tuic',
+        'tag': server_info.fragment or tool.genName() + '_tuic',
         'type': 'tuic',
         'server': re.sub(r"\[|\]", "", _netloc[1].rsplit(":", 1)[0]),
         'server_port': int(re.search(r'\d+', _netloc[1].rsplit(":", 1)[1]).group()),

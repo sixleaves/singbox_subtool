@@ -1,10 +1,11 @@
-import tool,re
+import re
+from core import tool
 from urllib.parse import urlparse,unquote
 def parse(data):
     info = data[:]
     server_info = urlparse(info)
     try:
-        remark = tool.b64Decode(server_info.netloc+server_info.path).decode().rsplit("/#", 1)
+        remark = tool.b64Decode(server_info.netloc + server_info.path).decode().rsplit("/#", 1)
     except UnicodeDecodeError:
         remark = (server_info.netloc).rsplit("/#", 1)
     _netloc = remark[0].rsplit("@", 1)

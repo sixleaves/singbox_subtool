@@ -1,4 +1,5 @@
-import tool,re
+import re
+from core import tool
 from urllib.parse import urlparse, parse_qs, unquote
 
 def parse(data):
@@ -11,7 +12,7 @@ def parse(data):
     if server_info.path:
       server_info = server_info._replace(netloc=server_info.netloc + server_info.path, path="")
     node = {
-        'tag': unquote(server_info.fragment) or tool.genName()+'_hysteria2',
+        'tag': unquote(server_info.fragment) or tool.genName() + '_hysteria2',
         'type': 'hysteria2',
         'server': re.sub(r"\[|\]", "", server_info.netloc.split("@")[-1].rsplit(":", 1)[0]),
         'server_port': int(re.search(r'\d+', server_info.netloc.rsplit(":", 1)[-1].split(",")[0]).group()),

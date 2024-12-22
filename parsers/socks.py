@@ -1,4 +1,5 @@
-import tool,re
+import re
+from core import tool
 from urllib.parse import urlparse,unquote
 def parse(data):
     info = data[:]
@@ -6,7 +7,7 @@ def parse(data):
     if server_info.path:
       server_info = server_info._replace(netloc=server_info.netloc + server_info.path, path="")
     node = {
-        'tag': unquote(server_info.fragment)  or tool.genName()+'_socks',
+        'tag': unquote(server_info.fragment) or tool.genName() + '_socks',
         'type': 'socks',
         "version": "5",
         'udp_over_tcp': {}

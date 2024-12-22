@@ -1,4 +1,5 @@
-import tool,json,re
+import json,re
+from core import tool
 from urllib.parse import urlparse, parse_qs
 def parse(data):
     info = data[8:]
@@ -16,7 +17,7 @@ def parse(data):
             except:
                 _path = (server_info.path).split("@")
             node = {
-                'tag': netquery.get('remarks', tool.genName()+'_vmess'),
+                'tag': netquery.get('remarks', tool.genName() + '_vmess'),
                 'type': 'vmess',
                 'server': _path[1].split(":")[0],
                 'server_port': int(_path[1].split(":")[1]),
@@ -66,7 +67,7 @@ def parse(data):
         item = json.loads(proxy_str)
     except:
         return None
-    content = item.get('ps').strip() if item.get('ps') else tool.genName()+'_vmess'
+    content = item.get('ps').strip() if item.get('ps') else tool.genName() + '_vmess'
     node = {
         'tag': content,
         'type': 'vmess',

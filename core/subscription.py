@@ -4,12 +4,11 @@ import time
 import importlib
 import ruamel.yaml
 import yaml
-
-import tool
-from typing import Dict, List, Any, Optional
+from typing import Dict, List, Optional
 from urllib.parse import urlparse
 
-from models import SubscriptionConfig
+from core import tool
+from core.models import SubscriptionConfig
 
 
 class SubscriptionManager:
@@ -31,7 +30,14 @@ class SubscriptionManager:
 
     def _init_parsers(self):
         """Initialize parsers from parsers directory."""
-        for file in os.listdir('parsers'):
+        # 获取当前文件(subscription.py)所在的core目录
+        core_dir = os.path.dirname(os.path.abspath(__file__))
+        # 获取项目根目录
+        root_dir = os.path.dirname(core_dir)
+        # 构建 parsers 目录的绝对路径
+        parsers_path = os.path.join(root_dir, 'parsers')
+        print(parsers_path)
+        for file in os.listdir(parsers_path):
             if file.endswith('.py') and not file.startswith('__'):
                 module_name = os.path.splitext(file)[0]
                 self.parsers[module_name] = importlib.import_module(f'parsers.{module_name}')
@@ -97,7 +103,6 @@ class SubscriptionManager:
 
     def _get_content_from_url(self, url: str, custom_ua: str = '', retry_count: int = 10) -> Optional[List[Dict]]:
         """Get content from URL with retry mechanism."""
-        print('处理: \033[31m' + url + '\033[0m')
 
         headers = {}
         if custom_ua:

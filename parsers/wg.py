@@ -1,7 +1,7 @@
 from urllib.parse import urlparse, parse_qs, unquote
 
 import re
-import tool
+from core import tool
 
 
 def parse(data):
@@ -12,7 +12,7 @@ def parse(data):
         for k, v in parse_qs(server_info.query).items()
     )
     node = {
-        'tag': unquote(server_info.fragment) or tool.genName()+'_wireguard',
+        'tag': unquote(server_info.fragment) or tool.genName() + '_wireguard',
         'type': 'wireguard',
         'private_key': netquery.get('privateKey') or unquote(server_info.netloc.rsplit("@", 1)[0]),
         'peers': []

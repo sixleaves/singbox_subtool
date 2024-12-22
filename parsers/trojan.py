@@ -1,4 +1,5 @@
-import tool,re
+import re
+from core import tool
 from urllib.parse import urlparse, parse_qs, unquote
 def parse(data):
     info = data[:]
@@ -14,7 +15,7 @@ def parse(data):
         for k, v in parse_qs(server_info.query).items()
     )
     node = {
-        'tag': unquote(server_info.fragment) or tool.genName()+'_trojan',
+        'tag': unquote(server_info.fragment) or tool.genName() + '_trojan',
         'type': 'trojan',
         'server': re.sub(r"\[|\]", "", _netloc[1].rsplit(":", 1)[0]),
         'server_port': int(_netloc[1].rsplit(":", 1)[1].split("/")[0]),

@@ -1,4 +1,6 @@
-import tool
+from core import tool
+
+
 def parse(data):
     info = data[6:]
     if not info or info.isspace():
@@ -40,5 +42,5 @@ def parse(data):
         if keyname in pdict.keys():
             keyname = pdict[keyname]
             node[keyname] = tool.b64Decode(key_value[1]).decode('utf-8')
-    node['tag'] = node['tag'] if node.get('tag') else tool.genName()+'_shadowsocksr'
+    node['tag'] = node['tag'] if node.get('tag') else tool.genName() + '_shadowsocksr'
     return node
