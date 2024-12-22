@@ -8,6 +8,69 @@ from core.models import NodeConfig
 
 
 class ConfigManager:
+    def generate_ios_config(self, config: Dict) -> Dict:
+        """Generate iOS version configuration file.
+
+        Args:
+            config: Original configuration dictionary
+
+        Returns:
+            Modified configuration for iOS
+        """
+        ios_config = config.copy()
+
+        # 修改 inbounds 配置
+        ios_config['inbounds'] = [{
+            "type": "tun",
+            "tag": "tun-in",
+            "address": ["172.19.0.1/30"],
+            "mtu": 9000,
+            "auto_route": "true",
+            "stack": "system"
+        }]
+
+        # 修改 experimental 配置
+        ios_config['experimental'] = {
+            "clash_api": {
+                "external_controller": "127.0.0.1:9095",
+                "secret": ""
+            },
+            "cache_file": {
+                "enabled": "true",
+                "store_fakeip": "false"
+            }
+        }
+
+        return ios_config
+
+    def save_config(self, config: Dict, path: str, generate_ios: bool = False):
+        """Save configuration to file, optionally generating iOS version.
+
+        Args:
+            config: Configuration dictionary
+            path: Path to save the configuration
+            generate_ios: Whether to generate iOS version
+        """
+        try:
+            # 保存原始配置
+            if os.path.exists(path):
+                backup_path = f"{path}_copy.json"
+                os.rename(path, backup_path)
+
+            with open(path, 'w') as f:
+                json.dump(config, f, indent=2, ensure_ascii=False)
+
+            # 如果需要生成 iOS 版本
+            if generate_ios:
+                ios_config = self.generate_ios_config(config)
+                ios_path = path.rsplit('.', 1)[0] + '_ios.json'
+
+                with open(ios_path, 'w') as f:
+                    json.dump(ios_config, f, indent=2, ensure_ascii=False)
+                print(f"iOS 配置已保存到: {ios_path}")
+
+        except Exception as e:
+            raise ConfigError(f"Failed to save config: {str(e)}")
     """Manages configuration templates and final config generation."""
 
     def __init__(self, template_path: str):
@@ -118,17 +181,3 @@ class ConfigManager:
             config['outbounds'] = new_outbounds
 
         return config
-
-    def save_config(self, config: Dict, path: str):
-        """Save final configuration to file."""
-        try:
-            # Create backup if file exists
-            if os.path.exists(path):
-                backup_path = f"{path}_copy.json"
-                os.rename(path, backup_path)
-
-            with open(path, 'w') as f:
-                json.dump(config, f, indent=2, ensure_ascii=False)
-
-        except Exception as e:
-            raise ConfigError(f"Failed to save config: {str(e)}")

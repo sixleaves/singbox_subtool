@@ -9,8 +9,6 @@ def main():
     """Main entry point."""
     try:
         # Initialize managers
-        # config_path = os.path.abspath()
-        # template_path = os.path.abspath()
         sub_manager = SubscriptionManager('providers.json')
         config_manager = ConfigManager('config_template/default.json')
 
@@ -23,8 +21,8 @@ def main():
         # Generate final config
         final_config = config_manager.merge_nodes(nodes)
 
-        # Save configuration
-        config_manager.save_config(final_config, 'config.json')
+        # Save both normal and iOS configurations
+        config_manager.save_config(final_config, 'config.json', generate_ios=True)
 
     except Exception as e:
         print(f"Error: {str(e)}")

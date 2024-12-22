@@ -72,7 +72,7 @@
      {"clash_mode": "direct", "outbound": "全球直连"},
      {"clash_mode": "global", "outbound": "GLOBAL"},
      {"domain": ["clash.razord.top", "yacd.metacubex.one", "yacd.haishan.me", "d.metacubex.one"], "outbound": "全球直连"},
-     {"domain_suffix": ["okex.com", "okx.com", "oklink.com", "okx-dns.com", "okx-dns1.com", "okx-dns2.com"], "outbound": "全球直连"},
+     {"domain_suffix": ["okex.com", "okx.com", "oklink.com", "okx-dns.com", "okx-dns1.com", "okx-dns2.com", "binance.com","binance.info","binancecnt.com"], "outbound": "全球直连"},
      {"rule_set": ["geosite-ad1", "geosite-ad2", "geosite-blockcn"], "action": "reject"},
      {"rule_set": "geosite-ctm_cn", "outbound": "全球直连"},
      {"rule_set": "geosite-private", "outbound": "全球直连"},
