@@ -95,27 +95,6 @@ class SubscriptionManager:
         else:
             return self._get_content_from_url(url, subscribe.user_agent if subscribe.user_agent else '')
 
-    # def _get_nodes(self, subscribe: Dict) -> Optional[List[Dict]]:
-    #     """Get and parse nodes from subscription URL.
-    #
-    #     Args:
-    #         subscribe: Complete subscription configuration dictionary
-    #     """
-    #     url = subscribe['url']
-    #     if url.startswith('sub://'):
-    #         url = tool.b64Decode(url[6:]).decode('utf-8')
-    #
-    #     urlstr = tool.urlparse(url)
-    #     if not urlstr.scheme:
-    #         try:
-    #             content = tool.b64Decode(url).decode('utf-8')
-    #             return self._parse_content(content)
-    #         except:
-    #             return self._get_content_from_file(url)
-    #     else:
-    #         custom_ua = subscribe.get('User-Agent', '')  # 获取自定义 User-Agent
-    #         return self._get_content_from_url(url, custom_ua)
-
     def _get_content_from_url(self, url: str, custom_ua: str = '', retry_count: int = 10) -> Optional[List[Dict]]:
         """Get content from URL with retry mechanism."""
         print('处理: \033[31m' + url + '\033[0m')
