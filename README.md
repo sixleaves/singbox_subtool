@@ -2,6 +2,7 @@
 - 改造了Toperlock的开源项目https://github.com/Toperlock/sing-box-subscribe.git
 - 用面向对象重构。
 - 去除后端功能.方便程序员自行实用。
+- 支持最新版本的singbox订阅，不支持旧版本。
 
 ## 使用步骤
 - 1.创建如下的providers.json文件。url部分填入订阅地址
