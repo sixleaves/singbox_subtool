@@ -25,7 +25,7 @@ class ConfigManager:
             "tag": "tun-in",
             "address": ["172.19.0.1/30"],
             "mtu": 9000,
-            "auto_route": "true",
+            "auto_route": True,
             "stack": "system"
         }]
 
@@ -36,21 +36,15 @@ class ConfigManager:
                 "secret": ""
             },
             "cache_file": {
-                "enabled": "true",
-                "store_fakeip": "false"
+                "enabled": True,
+                "store_fakeip": False
             }
         }
 
         return ios_config
 
     def save_config(self, config: Dict, path: str, generate_ios: bool = False):
-        """Save configuration to file, optionally generating iOS version.
-
-        Args:
-            config: Configuration dictionary
-            path: Path to save the configuration
-            generate_ios: Whether to generate iOS version
-        """
+        """Save configuration to file, optionally generating iOS version."""
         try:
             # 保存原始配置
             if os.path.exists(path):
@@ -58,7 +52,8 @@ class ConfigManager:
                 os.rename(path, backup_path)
 
             with open(path, 'w') as f:
-                json.dump(config, f, indent=2, ensure_ascii=False)
+                # 将 Python 的 True/False 转换为 JSON 的 true/false
+                json.dump(config, f, indent=2, ensure_ascii=False, default=str)
 
             # 如果需要生成 iOS 版本
             if generate_ios:
@@ -66,12 +61,11 @@ class ConfigManager:
                 ios_path = path.rsplit('.', 1)[0] + '_ios.json'
 
                 with open(ios_path, 'w') as f:
-                    json.dump(ios_config, f, indent=2, ensure_ascii=False)
+                    json.dump(ios_config, f, indent=2, ensure_ascii=False, default=str)
                 print(f"iOS 配置已保存到: {ios_path}")
 
         except Exception as e:
             raise ConfigError(f"Failed to save config: {str(e)}")
-    """Manages configuration templates and final config generation."""
 
     def __init__(self, template_path: str):
         self.template = self._load_template(template_path)
