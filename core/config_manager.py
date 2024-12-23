@@ -27,7 +27,8 @@ class ConfigManager:
             "mtu": 9000,
             "auto_route": True,
             "stack": "system"
-        }]
+        },{ "type": "mixed",  "listen": "::", "listen_port": 2080,  "users": [ {"username": "sixleaves", "password": "EsR2r9zWVrJjCiA"}],"set_system_proxy": False }
+        ]
 
         # 修改 experimental 配置
         ios_config['experimental'] = {
@@ -124,21 +125,18 @@ class ConfigManager:
                     result = filtered
                 elif action == 'exclude':
                     # 对于 exclude，所有关键词都要检查
-                    filtered = []
+                    filtered = result.copy()
                     for tag in result:
-                        should_exclude = False
                         for keyword in keywords:
                             # 处理包含 | 的关键词
                             if '|' in keyword:
                                 patterns = keyword.split('|')
                                 if any(pattern in tag for pattern in patterns):
-                                    should_exclude = True
+                                    filtered.remove(tag)
                                     break
                             elif keyword in tag:
-                                should_exclude = True
+                                filtered.remove(tag)
                                 break
-                        if not should_exclude:
-                            filtered.append(tag)
                     result = filtered
 
             print(f"过滤器处理: {outbound['tag']} 从 {original_count} 个节点过滤后剩余 {len(result)} 个节点")

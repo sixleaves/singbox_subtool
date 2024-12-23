@@ -48,7 +48,7 @@
     { "tag": "Apple", "type": "selector", "outbounds": ["全球直连", "香港节点", "日本节点", "美国节点"] },
     { "tag": "漏网之鱼", "type": "selector", "outbounds": ["节点选择","全球直连"] },
     { "tag": "手动切换", "type": "selector", "outbounds": ["{all}"],"filter": [{ "action": "exclude", "keywords": ["dns-"] }]},
-    { "tag": "dns", "type": "urltest", "outbounds": ["{all}"], "filter": [{ "action": "include", "keywords": ["dns-"] }], "url": "http://www.gstatic.com/generate_204", "interval": "1m", "tolerance": 34},
+    { "tag": "dns", "type": "urltest", "outbounds": ["{all}"], "filter": [{ "action": "include", "keywords": ["dns-"] },{ "action": "exclude", "keywords":["dns-香港 IEPL"]}], "url": "dns.google:53", "interval": "2m", "tolerance": 55},
     { "tag": "香港节点", "type": "selector", "outbounds": ["{all}"], "filter": [{ "action": "include", "keywords": ["HK|香港"] },{ "action": "exclude", "keywords": ["dns-"] }] },
     { "tag": "日本节点", "type": "selector", "outbounds": ["{all}"], "filter": [{ "action": "include", "keywords": ["JP|日本"] },{ "action": "exclude", "keywords": ["dns-"] }] },
     { "tag": "美国节点", "type": "selector", "outbounds": ["{all}"], "filter": [{ "action": "include", "keywords": ["US|美国"] }, { "action": "exclude", "keywords": ["dns-"] }] },
