@@ -12,6 +12,7 @@ class SubscriptionConfig:
     subgroup: str = ""
     prefix: str = ""
     user_agent: str = ""
+    insecure: bool = False  # 添加 insecure 配置，默认为 False
 
     def __post_init__(self):
         if isinstance(self.emoji, int):

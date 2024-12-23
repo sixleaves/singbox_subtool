@@ -6,6 +6,10 @@
 
 ## 使用步骤
 - 1.创建如下的providers.json文件。url部分填入订阅地址
+  - url:订阅的地址
+  - tag:给这个订阅地址一个名字
+  - prefix:给每个节点名字添加的前缀
+  - insecure:是否开启证书tls证书校验。如果不开启会被中间人攻击，导致数据泄漏。
 ```json
 {
     "subscribes":[
@@ -16,7 +20,8 @@
             "emoji": 0,
             "subgroup": "",
             "prefix": "",
-            "user_agent":"v2rayng"
+            "user_agent":"v2rayng",
+            "insecure": true
         }
     ],
     "auto_set_outbounds_dns":{

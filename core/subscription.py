@@ -99,9 +99,9 @@ class SubscriptionManager:
             except:
                 return self._get_content_from_file(url)
         else:
-            return self._get_content_from_url(url, subscribe.user_agent if subscribe.user_agent else '')
+            return self._get_content_from_url(url, subscribe.user_agent if subscribe.user_agent else '', insecure = subscribe.insecure)
 
-    def _get_content_from_url(self, url: str, custom_ua: str = '', retry_count: int = 10) -> Optional[List[Dict]]:
+    def _get_content_from_url(self, url: str, custom_ua: str = '', retry_count: int = 10, insecure: bool = False) -> Optional[List[Dict]]:
         """Get content from URL with retry mechanism."""
 
         headers = {}
@@ -135,7 +135,7 @@ class SubscriptionManager:
                 share_links = []
                 for proxy in data['proxies']:
                     share_links.append(tool.clash2v2ray(proxy))
-                return self._parse_content('\n'.join(share_links))
+                return self._parse_content('\n'.join(share_links), insecure)
             elif 'outbounds' in text:
                 data = json.loads(text)
                 excluded_types = {"selector", "urltest", "direct", "block", "dns"}
@@ -144,9 +144,9 @@ class SubscriptionManager:
             else:
                 try:
                     decoded = tool.b64Decode(text).decode('utf-8')
-                    return self._parse_content(decoded)
+                    return self._parse_content(decoded, insecure)
                 except:
-                    return self._parse_content(text)
+                    return self._parse_content(text, insecure)
         except Exception as e:
             print(f'Error processing URL content: {str(e)}')
             return None
@@ -170,7 +170,7 @@ class SubscriptionManager:
                 data = data.decode('utf-8')
             return self._parse_content(data)
 
-    def _parse_content(self, content: str) -> List[Dict]:
+    def _parse_content(self, content: str, insecure: bool) -> List[Dict]:
         """Parse node configurations from content."""
         nodelist = []
         for line in content.splitlines():
@@ -194,6 +194,9 @@ class SubscriptionManager:
             try:
                 node = self.parsers[protocol].parse(line)
                 if node:
+                    # 如果节点包含 tls 配置，应用订阅的 insecure 设置
+                    if 'tls' in node and isinstance(node['tls'], dict):
+                        node['tls']['insecure'] = insecure
                     nodelist.append(node)
             except Exception as e:
                 print(f'Node parse error: {str(e)}')
