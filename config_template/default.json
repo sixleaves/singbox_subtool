@@ -13,7 +13,7 @@
  {
    "servers":
    [
-     {"tag": "dns_direct", "address": "223.5.5.5", "address_strategy": "ipv4_only", "strategy": "ipv4_only", "detour": "全球直连","client_subnet": "60.176.88.0/24"},
+     {"tag": "dns_direct", "address": "https://180.163.249.75/dns-query", "address_strategy": "ipv4_only", "strategy": "ipv4_only", "detour": "全球直连","client_subnet": "60.176.88.0/24"},
      {"tag": "dns_proxy", "address": "https://8.8.8.8/dns-query", "detour": "DNS","client_subnet": "60.176.88.0/24"}
    ],
    "rules":
