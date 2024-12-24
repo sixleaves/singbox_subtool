@@ -37,8 +37,14 @@ class ConfigManager:
                 },
                 "cache_file": {
                         "enabled": True,
-                         "store_fakeip": False
+                         "store_fakeip": True
                 }
+        }
+
+        ios_config["dns"]["fakeip"] = {
+            "enabled": True,
+            "inet4_range": "198.18.0.0/15",
+            "inet6_range": "fc00::/18"
         }
 
         return ios_config
