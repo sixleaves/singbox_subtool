@@ -24,22 +24,21 @@ class ConfigManager:
             "type": "tun",
             "tag": "tun-in",
             "address": ["172.19.0.1/30"],
-            "mtu": 9000,
+            "mtu": 1500,
             "auto_route": True,
             "stack": "system"
-        },{ "type": "mixed",  "listen": "::", "listen_port": 2080,  "users": [ {"username": "sixleaves", "password": "EsR2r9zWVrJjCiA"}],"set_system_proxy": False }
-        ]
+        }]
 
         # 修改 experimental 配置
         ios_config['experimental'] = {
-            "clash_api": {
-                "external_controller": "127.0.0.1:9095",
-                "secret": ""
-            },
-            "cache_file": {
-                "enabled": True,
-                "store_fakeip": False
-            }
+                "clash_api": {
+                      "external_controller": "127.0.0.1:9095", "external_ui": "/etc/sing-box/ui", "secret": "", "external_ui_download_detour": "全球直连", "default_mode": "rule",
+                      "external_ui_download_url": "https://gh-proxy.com/https://github.com/MetaCubeX/Yacd-meta/archive/gh-pages.zip"
+                },
+                "cache_file": {
+                        "enabled": True,
+                         "store_fakeip": False
+                }
         }
 
         return ios_config
