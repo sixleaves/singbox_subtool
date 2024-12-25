@@ -26,7 +26,8 @@ class ConfigManager:
             "address": ["172.19.0.1/30"],
             "mtu": 1500,
             "auto_route": True,
-            "stack": "system"
+            "stack": "system",
+            "route_exclude_address_set" : ["geosite-private", "geosite-ctm_cn", "geoip-cn"]
         }]
 
         # 修改 experimental 配置
