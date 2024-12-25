@@ -65,7 +65,9 @@
    "rules":
    [
      {"action": "sniff"     ,"timeout": "2s"},
-     {"action": "hijack-dns","protocol": "dns" },
+     {"action": "hijack-dns","protocol": "dns"},
+     {"action": "reject"    ,"ip_cidr": ["224.0.0.0/4", "169.254.0.0/16"]},
+     {"action": "reject"    ,"protocol": "quic"},
      {"action": "route"     ,"protocol": "ssh",        "outbound": "全球直连"},
      {"action": "route"     ,"protocol": "bittorrent", "outbound": "全球直连"},
      {"action": "route"     ,"clash_mode": "direct", "outbound": "全球直连"},

@@ -23,7 +23,7 @@ class ConfigManager:
         ios_config['inbounds'] = [{
             "type": "tun",
             "tag": "tun-in",
-            "address": ["172.19.0.1/30"],
+            "address": ["10.8.8.8/30"],
             "mtu": 1500,
             "auto_route": True,
             "stack": "system",
