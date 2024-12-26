@@ -10,7 +10,7 @@ def main():
     try:
         # Initialize managers
         sub_manager = SubscriptionManager('providers.json')
-        config_manager = ConfigManager('config_template/default.json')
+        config_manager = ConfigManager(sub_manager.config.get('config_template'))
 
         # Load and validate subscriptions
         subscriptions = [SubscriptionConfig(**sub) for sub in sub_manager.config['subscribes']]
