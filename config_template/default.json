@@ -29,8 +29,7 @@
 },
 
 "inbounds": [
-  { "type": "tproxy", "tag": "tproxy-in", "listen": "::", "listen_port": 7895, "udp_timeout": "5m"},
-  { "type": "mixed",  "listen": "::", "listen_port": 2080,  "users": [ {"username": "sixleaves", "password": "EsR2r9zWVrJjCiA"}],"set_system_proxy": false }
+  { "type": "tproxy", "tag": "tproxy-in", "listen": "::", "listen_port": 7895, "udp_timeout": "5m"}
 ],
 
   "outbounds": [
