@@ -192,7 +192,12 @@ class SubscriptionManager:
                 continue
 
             try:
+                # 假设原字符串存储在 tag_value 中
+
                 node = self.parsers[protocol].parse(line)
+                tag_value = node['tag']
+                tag_value = tag_value[tag_value.find(next(c for c in tag_value if c.isalnum())):]
+                node['tag'] = tag_value
                 if node:
                     # 如果节点包含 tls 配置，应用订阅的 insecure 设置
                     if 'tls' in node and isinstance(node['tls'], dict):
